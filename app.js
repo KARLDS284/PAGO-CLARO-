@@ -1,8 +1,8 @@
 // 1. Simulación de tasas del día (En una app real se conectarían a una API)
 const TASAS_DEL_DIA = {
    bcv: 549.37,
-    paralelo:742.44,
-    usdt: 742.44
+    paralelo:737.44 ,
+    usdt: 737.44
 };
 
 // 2. Referencias a los elementos del HTML
