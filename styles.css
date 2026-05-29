@@ -1,0 +1,182 @@
+/* Variables de colores para mantener armonía */
+:root {
+    --primary-color: #77787a;
+    --bg-color: #ffffffdc;
+    --card-bg: #ffffff;
+    --text-main: #212529;
+    --text-muted: #ffffff;
+    --accent-color: #198754;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: var(--text-muted);
+}
+
+main {
+    width: 100%;
+    max-width: 480px; /* Diseño pensado primero para celulares */
+}
+
+/* Tarjetas de tasas */
+.tasas-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.tasa-card {
+    background: var(--card-bg);
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    flex: 1;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    border-top: 4px solid var(--primary-color);
+}
+
+.tasa-card h3 {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+
+.tasa-card p {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+/* Calculadora */
+.calculadora-container {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+}
+
+.calculadora-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+/* Resultado */
+.resultado-box {
+    text-align: center;
+    margin: 25px 0;
+    padding: 15px;
+    background-color: #e7f1ff;
+    border-radius: 10px;
+    border: 1px solid #b6d4fe;
+}
+
+.resultado-box h3 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.monto-final {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-top: 5px;
+}
+
+/* Recibo */
+.recibo-box {
+    margin-top: 20px;
+}
+
+.helper-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px dashed #adb5bd;
+    border-radius: 8px;
+    resize: none;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 15px;
+    background: #f8f9fa;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s;
+}
+
+button:hover {
+    background-color: #146c43;
+}
+
+button:active {
+    transform: scale(0.98);
+}

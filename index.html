@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PagoClaro - Cobros sin enredos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>PagoClaro 💸</h1>
+        <p>¡Cuentas claras conservan amistades!</p>
+    </header>
+
+    <main>
+        <section class="tasas-container">
+            <div class="tasa-card">
+                <h3>BCV</h3>
+                <p id="tasa-bcv">--- Bs</p>
+            </div>
+            <div class="tasa-card">
+                <h3>En Paralelo</h3>
+                <p id="tasa-paralelo">--- Bs</p>
+            </div>
+            <div class="tasa-card">
+                <h3>USDT</h3>
+                <p id="tasa-usdt">--- Bs</p>
+            </div>
+        </section>
+
+        <section class="calculadora-container">
+            <h2>Calculadora Inteligente</h2>
+            
+            <div class="form-group">
+                <label for="monto-base">Monto que deseas recibir (USD netos):</label>
+                <input type="number" id="monto-base" placeholder="Ej. 40" min="1" step="0.01">
+            </div>
+
+            <div class="form-group">
+                <label for="metodo-pago">¿Cómo te van a pagar?</label>
+                <select id="metodo-pago">
+                    <option value="bcv">Pago Móvil / Transferencia (Bs a tasa BCV)</option>
+                    <option value="usdt">Binance Pay (USDT)</option>
+                    <option value="paypal">PayPal (Calcula la comisión exacta)</option>
+                    <option value="zelle">Zelle / Efectivo (Monto exacto)</option>
+                </select>
+            </div>
+
+            <div class="resultado-box">
+                <h3>Al cliente debes cobrarle:</h3>
+                <p id="monto-cobrar" class="monto-final">$0.00</p>
+            </div>
+
+            <div class="recibo-box">
+                <h3>Recibo Express</h3>
+                <p class="helper-text">Copia esto y envíalo directo por WhatsApp</p>
+                <textarea id="texto-recibo" readonly rows="6">Ingresa un monto para generar tu recibo...</textarea>
+                <button id="btn-copiar">Copiar para WhatsApp 📋</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
