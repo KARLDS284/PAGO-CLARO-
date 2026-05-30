@@ -1,0 +1,227 @@
+/* Variables de colores para mantener armonía */
+:root {
+    --primary-color: #2bbd06;
+    --bg-color: #222121dc;
+    --card-bg: #797575;
+    --text-main: #000000;
+    --text-muted: #2abd05;
+    --accent-color: #198754;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: var(--text-muted);
+}
+
+main {
+    width: 100%;
+    max-width: 480px; /* Diseño pensado primero para celulares */
+}
+
+/* Tarjetas de tasas */
+.tasas-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.tasa-card {
+    background: var(--card-bg);
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    flex: 1;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    border-top: 4px solid var(--primary-color);
+}
+
+.tasa-card h3 {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+
+.tasa-card p {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+/* Calculadora */
+.calculadora-container {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+}
+
+.calculadora-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+/* Resultado */
+.resultado-box {
+    text-align: center;
+    margin: 25px 0;
+    padding: 15px;
+    background-color: #e7f1ff;
+    border-radius: 10px;
+    border: 1px solid #b6d4fe;
+}
+
+.resultado-box h3 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.monto-final {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-top: 5px;
+}
+
+/* Recibo */
+.recibo-box {
+    margin-top: 20px;
+}
+
+.helper-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px dashed #adb5bd;
+    border-radius: 8px;
+    resize: none;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 15px;
+    background: #f8f9fa;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s;
+}
+
+button:hover {
+    background-color: #146c43;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+/* Alinea el precio "--- Bs" y el badge uno al lado del otro */
+.bloque-precio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Separación entre el texto y la pastilla */
+}
+
+/* Estilo de la pastillita naranja */
+.badge-brecha {
+    background-color: rgba(230, 126, 34, 0.15); /* Fondo naranja transparente */
+    color: #e70c0c; /* Texto naranja fuerte */
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Estilo del texto pequeño de abajo */
+.diferencia-subtexto {
+    font-size: 0.8rem;
+    color: #7f8c8d; /* Gris sutil */
+    margin-top: -5px; /* Lo acerca un poquito más al precio */
+}
+/* Efecto de cinta LED para todas las tarjetas */
+.tasa-card {
+    /* (Manten los estilos que ya tengas, solo agrega estas líneas abajo) */
+    
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Un borde casi invisible para que la luz resalte más */
+    
+    /* El truco de la cinta LED: 3 capas de sombra con un color azul neón/tecnológico */
+    box-shadow: 0 0 8px rgba(6, 235, 6, 0.808),   /* Luz intensa pegada a la tarjeta */
+                0 0 20px rgba(9, 255, 0, 0.562),  /* Resplandor medio */
+                0 0 40px rgba(9, 255, 0, 0.747);  /* Luz difusa que se expande al fondo */
+                
+    transition: box-shadow 0.3s ease; /* Para que si pasas el mouse, cambie suavemente */
+}
+
+/* OPCIONAL: Si quieres que brille MÁS cuando el usuario pasa el mouse por encima */
+.tasa-card:hover {
+    box-shadow: 0 0 12px rgba(11, 216, 39, 0.5),
+                0 0 30px rgba(6, 165, 6, 0.89),
+                0 0 60px rgba(20, 180, 5, 0.596);
+}
