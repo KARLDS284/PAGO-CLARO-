@@ -1,0 +1,649 @@
+/* =====================================================================
+   1. CONFIGURACIÓN GENERAL Y VARIABLES
+   ===================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-color: #00d2ff; /* Azul neón */
+    --success-color: #10b981; /* Verde esmeralda */
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #090d16; /* Negro azulado profundo de interfaz financiera */
+    color: var(--text-main);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* =====================================================================
+   2. ESTRUCTURA PRINCIPAL Y CONTENEDORES
+   ===================================================================== */
+.contenedor-app {
+    max-width: 480px;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px); /* Efecto vidrio esmerilado */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* Bloque superior de Tasas (Grid de 3 columnas) */
+.tasas-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.tasa-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 14px 12px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.05), 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tasa-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.25), 0 8px 24px rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 210, 255, 0.3);
+}
+
+.tasa-card h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin: 0 0 6px 0;
+}
+
+.tasa-card p {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main);
+}
+
+/* Componentes internos de la tarjeta de Diferencia Cambiaria */
+.bloque-precio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.badge-brecha {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--success-color);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.diferencia-subtexto {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin: 6px 0 0 0;
+}
+
+/* =====================================================================
+   3. FORMULARIO Y CALCULADORA
+   ===================================================================== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.flex-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+input[type="number"], select {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 14px;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+input[type="number"]:focus, select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(0, 210, 255, 0.15);
+}
+
+/* Deshabilitar flechas nativas en input number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Bloque de resultado (Monto a cobrar) */
+.resultado-box {
+    background: rgba(0, 210, 255, 0.03);
+    border: 1px dashed rgba(0, 210, 255, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    margin: 25px 0 15px 0;
+}
+
+.resultado-box h3 {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 5px 0;
+    font-weight: 500;
+}
+
+.monto-final {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--success-color);
+    margin: 0;
+}
+
+/* =====================================================================
+   4. SECCIÓN REUBICADA: AJUSTES CONTEXTUALES DE FLUJO
+   ===================================================================== */
+.ajustes-wrapper-flujo {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.btn-ajustes-toggle {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-ajustes-toggle:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--accent-color);
+}
+
+.panel-ajustes {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(0, 210, 255, 0.15);
+    border-radius: 18px;
+    padding: 22px;
+    margin-top: 10px;
+    box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.02);
+    animation: deslizarAbajo 0.25s ease-out;
+}
+
+@keyframes deslizarAbajo {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.panel-ajustes.oculto {
+    display: none;
+}
+
+.panel-ajustes h3 {
+    margin: 0 0 6px 0;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.ajustes-helper {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0 0 16px 0;
+    line-height: 1.4;
+}
+
+.grid-ajustes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.grid-ajustes input {
+    width: 100%;
+    background: rgba(9, 13, 22, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.grid-ajustes input:focus {
+    border-color: var(--accent-color);
+}
+
+.btn-guardar-ajustes {
+    width: 100%;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--success-color);
+    padding: 12px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all 0.2s ease;
+}
+
+.btn-guardar-ajustes:hover {
+    background: var(--success-color);
+    color: #0f172a;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.badge-status {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.badge-status.pendiente {
+    background: rgba(234, 179, 8, 0.1);
+    color: #eab308;
+    border: 1px solid rgba(234, 179, 8, 0.2);
+    animation: sutil-parpadeo 2s infinite;
+}
+
+.badge-status.listo {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+@keyframes sutil-parpadeo {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; border-color: rgba(234, 179, 8, 0.5); }
+    100% { opacity: 0.8; }
+}
+
+/* =====================================================================
+   5. BLOQUE FINAL: ÁREA DEL RECIBO EXPRESS
+   ===================================================================== */
+.recibo-box {
+    margin-top: 20px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+.recibo-box h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 2px 0;
+    color: var(--text-main);
+}
+
+.helper-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0 0 12px 0;
+}
+
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 14px;
+    color: #f1f5f9;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700; /* Todo el texto dentro del recibo está en negrita */
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+    resize: none;
+    height: 135px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: rgba(16, 185, 129, 0.3);
+    background: rgba(15, 23, 42, 0.9);
+}
+
+#btn-copiar {
+    width: 100%;
+    background: linear-gradient(135deg, #00d2ff 0%, #00a6ff 100%);
+    color: #0f172a;
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 210, 255, 0.2);
+}
+
+#btn-copiar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 210, 255, 0.4);
+}
+
+#btn-copiar:active {
+    transform: translateY(1px);
+}
+
+/* =====================================================================
+   6. ELEMENTOS DE DISEÑO DE FONDO (Luces LED Ambientales)
+   ===================================================================== */
+.fondo-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -2;
+    pointer-events: none;
+}
+
+body::before, body::after {
+    content: '';
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    z-index: -1;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    filter: blur(140px);
+    animation: movimientoLuzAmbiental 20s infinite alternate ease-in-out;
+}
+
+body::before {
+    background: radial-gradient(circle, rgba(0, 210, 255, 0.07) 0%, rgba(0,0,0,0) 70%);
+    top: -150px;
+    left: -150px;
+}
+
+body::after {
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(0,0,0,0) 70%);
+    bottom: -150px;
+    right: -150px;
+    animation-delay: -10s;
+}
+
+@keyframes movimientoLuzAmbiental {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(80px, 50px) scale(1.1); }
+}
+
+.logo-contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 5px;
+}
+
+.logo-icono {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.4));
+}
+
+.logo-texto {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin: 0;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+}
+
+.logo-resalto {
+    font-weight: 800;
+    background: linear-gradient(135deg, #00d2ff, #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* BARRA DE ESTADO (Cápsula de Cristal) */
+.barra-status-live {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 8px auto 25px auto;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 6px 14px;
+    border-radius: 100px;
+    width: fit-content;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.02);
+}
+
+.punto-pulso {
+    width: 7px;
+    height: 7px;
+    background-color: #10b981;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    animation: pulsarVerde 2s infinite;
+}
+
+.texto-meta {
+    font-size: 0.72rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+}
+
+.separador-meta {
+    width: 1px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    margin: 0 2px;
+}
+
+@keyframes pulsarVerde {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* =====================================================================
+   7. AJUSTES RESPONSIVOS CRÍTICOS (Móviles - Anti-Scroll)
+   ===================================================================== */
+@media (max-width: 480px) {
+    body {
+        padding: 8px;
+        align-items: flex-start;
+    }
+
+    .contenedor-app {
+        padding: 16px 14px;
+        border-radius: 20px;
+    }
+
+    .logo-texto {
+        font-size: 1.4rem;
+    }
+
+    .barra-status-live {
+        margin-bottom: 14px;
+        padding: 4px 10px;
+        gap: 6px;
+    }
+
+    .texto-meta {
+        font-size: 0.65rem;
+    }
+
+    .separador-meta {
+        height: 8px;
+    }
+
+    .tasas-container {
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 6px;
+        margin-bottom: 14px;
+    }
+
+    .tasa-card {
+        padding: 8px 4px;
+        border-radius: 10px;
+    }
+
+    .tasa-card h3 {
+        font-size: 0.65rem;
+        margin-bottom: 2px;
+    }
+
+    .tasa-card p {
+        font-size: 0.85rem;
+    }
+
+    .badge-brecha {
+        font-size: 0.6rem;
+        padding: 1px 4px;
+    }
+
+    .diferencia-subtexto {
+        font-size: 0.6rem;
+        margin-top: 2px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    input[type="number"], select {
+        padding: 11px 12px;
+        font-size: 0.95rem;
+        border-radius: 10px;
+    }
+
+    /* Manejo del área de ajustes en móvil */
+    .ajustes-wrapper-flujo {
+        margin-top: 5px;
+        margin-bottom: 14px;
+    }
+
+    .btn-ajustes-toggle {
+        padding: 10px 14px;
+        font-size: 0.8rem;
+    }
+
+    .panel-ajustes {
+        padding: 14px;
+        margin-top: 8px;
+    }
+
+    .grid-ajustes {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .grid-ajustes input {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+
+    .resultado-box {
+        padding: 14px;
+        margin: 16px 0 10px 0;
+    }
+
+    .monto-final {
+        font-size: 1.7rem;
+    }
+
+    /* Adaptación del Recibo en Pantallas Móviles */
+    .recibo-box {
+        margin-top: 14px;
+        padding-top: 14px;
+    }
+
+    .helper-text {
+        margin-bottom: 8px;
+    }
+
+    textarea {
+        height: 115px;
+        font-size: 0.82rem;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    #btn-copiar {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Teléfonos extremadamente pequeños */
+@media (max-width: 350px) {
+    .grid-ajustes {
+        grid-template-columns: 1fr;
+    }
+}
